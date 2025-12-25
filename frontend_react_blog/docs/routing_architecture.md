@@ -1,38 +1,59 @@
 # Routing Architecture
 
-## Routing System
+## Routing Design
 
-Routing in the Fashion Trends Blog leverages `react-router-dom` (v6.x), enabling client-side navigation between discrete, static content views while maintaining a classic SPA feel. Navigation occurs instantly without full-page reloads.
+The Fashion Trends Blog uses React Router DOM (`react-router-dom`, v6+) for all navigation and route management. Routing is fully client-side, supporting smooth SPA transitions and deep linking between the homepage, individual blog posts, and error pages.
 
-### Route Table
+### Route Structure
 
-| Path           | Component         | Description                                         |
-|----------------|-------------------|-----------------------------------------------------|
-| `/`            | HomePage          | Grid view of all blog post previews                 |
-| `/post/:slug`  | PostDetailPage    | Full-page detail for a single post by slug          |
-| `*`            | 404 Fallback      | Custom message for unmapped/unknown routes          |
+| Path             | Component         | Description                                    |
+|------------------|------------------|------------------------------------------------|
+| `/`              | HomePage         | Main blog overview, grid of post previews      |
+| `/post/:slug`    | PostDetailPage   | Shows detail page for individual post          |
+| `*` (fallback)   | 404 Fallback     | Custom "Not Found" message for unmatched paths |
 
-- Dynamic segment `:slug` enables mapping to individual blog entries.
-- All navigation links use `<Link>` (not `<a>`) for SPA-like transitions.
+- The router is instantiated at the top of the app using `BrowserRouter`.
+- All post slugs are matched via the dynamic `/post/:slug` route.
+- Navigation links utilize `<Link>` components for SPA navigation without reloads.
 
-## Navigation Flow
+### Navigation Flows
 
-1. **Arrive on `/`:** Render HomePage with all posts.
-2. **Click a post:** Route to `/post/:slug` and render PostDetailPage for that post.
-3. **Back button or nav:** Return to `/` via navigation bar or "Back to Home".
-4. **Unknown path:** Any unrecognized route triggers the 404 fallback route.
+1. **Homepage**:  
+   Users landing on `/` see the grid of blog previews.  
+   Clicking a "Read more" link on a post navigates (via React Router) to `/post/:slug`.
 
-## Routing Structure Diagram
+2. **Post Detail View**:  
+   The app matches `/post/:slug` and finds the post in the hardcoded array.  
+   If the slug is missing or invalid, the Not Found (404) message is shown.
+
+3. **Returning Home**:  
+   The persistent NavBar offers a Home link. Individual post pages also include a "Back to Home" button, which navigates users back to `/`.
+
+4. **Handling Invalid Routes**:  
+   Any URL path not matching `/` or `/post/:slug` triggers the fallback route and shows a friendly 404 error message.
+
+### SPA Client-Side Routing
+
+- The routing system relies on the HTML5 history API.
+- For deep links (direct access to `/post/:slug`, page reload), static hosts must redirect all unknown paths to `index.html` to ensure routing works after deployment.
+
+## Routing Diagram
 
 ```mermaid
-flowchart TD
-    R1["/"] -->|click post| R2["/post/:slug"]
-    R2 -->|Back to Home| R1
-    R1 -.->|unknown path| R3["* (404 Not found)"]
-    R2 -.->|unknown slug| R3
+flowchart LR
+    R1["/ (HomePage)"] -- "Click post preview" --> R2["/post/:slug (PostDetailPage)"]
+    R2 -- "Back/Home button, NavBar" --> R1
+    R3["Unknown Path"] --> R4["404 Not Found"]
+    R2 -- "Invalid slug" --> R4
+    R1 -- "Unknown route" --> R4
 ```
 
-- The system defaults all navigation and fallback logic within `App.js` using `<Routes>` and `<Route>` components.
+## Implementation Reference
+
+- All route logic and rendering are found in `src/App.js`, which uses:
+  - `<BrowserRouter>` for routing context
+  - `<Routes>` and `<Route>` for defining page views
+  - `<Link>` for non-reloading navigation
 
 ---
 
