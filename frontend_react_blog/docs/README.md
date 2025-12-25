@@ -4,6 +4,16 @@ Welcome to the documentation for the Fashion Trends Blog static React app! This 
 
 Browse the documentation via the sections below:
 
+**Architecture Documentation**
+- [Architecture Overview and System Goals](./architecture_overview.md)
+- [Component Architecture](./component_architecture.md)
+- [Routing Architecture](./routing_architecture.md)
+- [State and Data Handling](./state_data_handling.md)
+- [Styling and Theming Approach](./styling_theming.md)
+- [Build and Deployment Architecture](./build_deployment_architecture.md)
+- [Performance, Accessibility, and SEO](./performance_accessibility_seo.md)
+
+**General Documentation**
 - [1. Project Overview and Goals](./project_overview.md)
 - [2. Features and User Experience Flow](./features_and_ux.md)
 - [3. Tech Stack and Dependencies](./tech_stack.md)
