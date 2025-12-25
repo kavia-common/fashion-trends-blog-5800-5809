@@ -1,64 +1,78 @@
 # Component Architecture
 
-## Major Components and Responsibilities
+## Overview
 
-The app consists of modular and purposeful React components, defined as follows:
+The Fashion Trends Blog app consists of a small, well-organized set of React components. All structural, presentation, and page composition logic is contained within these components, which are managed by the root `App` component and organized for clarity, maintainability, and prop flow simplicity. The application follows a straightforward pattern in which the `App` component handles global logic and routing, while page components and UI elements handle display and navigation.
+
+## Main Components
 
 ### App
 
-- **Role:** Root component managing global state (theme), providing routes, layout, and context for child components.
+- **Role:** The root component wrapping the entire application.
+- **Responsibilities:** 
+  - Manages the theme (light/dark) and applies theme variables to the document.
+  - Establishes the router context and defines all routes.
+  - Provides the layout structure and renders global UI elements, including the top navigation bar and theme toggle button.
+
+### Router
+
+- **Role:** Provided by `react-router-dom`, wraps children to enable client-side routing.
 - **Responsibilities:**
-  - Wraps the application with the router.
-  - Renders the persistent navigation bar, theme toggle, and main page content.
-  - Implements routing logic and global styles.
+  - Enables instant navigation between pages without a full reload.
+  - Provides URL-based routes for homepage, post details, and 404 handling.
 
 ### NavBar
 
-- **Role:** Top-level site navigation bar.
+- **Role:** The persistent navigation bar at the top of the app.
 - **Responsibilities:**
-  - Shows the brand name/logo.
-  - Provides navigation links (Home).
-  - Is persistent on all pages.
+  - Renders branding (site name/logo).
+  - Provides navigation links (Home), styled with accent color.
+  - Ensures a consistent navigation experience across all app views.
 
 ### HomePage
 
-- **Role:** Landing page showing a preview grid of all blog posts.
+- **Role:** The landing page showing all blog post summaries in a grid layout.
 - **Responsibilities:**
-  - Renders all post summaries with image, excerpt, and "read more" link.
-  - Links each preview to its post detail page.
+  - Maps over the static posts array to generate post cards.
+  - Each card includes an image, title, excerpt, and "read more" link.
+  - Uses react-router Links for SPA navigation to post detail pages.
 
 ### PostDetailPage
 
-- **Role:** Renders the full content of a single blog post.
+- **Role:** Displays the full content (image, title, date, body HTML) for a single blog post, or a not-found message if the slug does not match.
 - **Responsibilities:**
-  - Displays the post's image, title, date, and full body (HTML).
-  - Shows "Back to Home" navigation.
-  - Handles not-found states and 404 fallback if the slug does not match a post.
+  - Looks up the post from the static data array by slug parameter in the URL.
+  - Shows post detail information if found.
+  - Provides a back navigation button to return to the homepage.
+  - Handles and displays a "post not found" state for invalid slugs.
 
-### Theme Toggle (Button)
+### Theme Toggle Button
 
-- **Role:** Allows user to switch between light and dark theme.
+- **Role:** Switches between light and dark themes.
 - **Responsibilities:**
-  - Persistent UI button (top right).
-  - Controls CSS variables to switch color palette.
+  - Updates theme in React state, which triggers changes to CSS variables/application styling.
+  - Accessible button with ARIA attributes, visually located at the top-right corner.
 
 ## Component Hierarchy Diagram
 
-Below is a visualization of the component structure as registered in `App.js`:
-
 ```mermaid
 graph TD
-  A["App"]
-  A --> B["NavBar"]
-  A --> C["ThemeToggle Button"]
-  A --> D["Routes"]
-  D --> E["HomePage"]
-  D --> F["PostDetailPage"]
-  D --> G["404 Fallback"]
+  App["App"]
+  App --> Router["Router (BrowserRouter)"]
+  Router --> NavBar["NavBar"]
+  Router --> ThemeToggle["Theme Toggle Button"]
+  Router --> Routes["Routes"]
+  Routes --> HomePage["HomePage ('/')"]
+  Routes --> PostDetailPage["PostDetailPage ('/post/:slug')"]
+  Routes --> NotFound["404 Fallback"]
 ```
 
-- **Note:** All routes/components are wrapped by the `App` component, which applies global layout and theming.
+- **Legend:**
+  - `App` is the entry/root component.
+  - `Router` wraps all routeable content/pages.
+  - `NavBar` and `Theme Toggle` are displayed on every page.
+  - `Routes` determines which page (`HomePage`, `PostDetailPage`, or 404) is displayed.
 
 ---
 
-_Sources: src/App.js, component_breakdown.md_
+_Sources: src/App.js code review_
