@@ -10,6 +10,28 @@ The Fashion Trends Blog is a modern, fully static, single-page application (SPA)
 
 ---
 
+## Architecture Overview & Key Components
+
+The Fashion Trends Blog is built as a static, single-page React application, with all blog data and routes statically defined. The system is composed of a handful of focused React components, managed through a clean hierarchy and routed entirely on the client. There is no backend; all data is contained within the frontend codebase.
+
+**Key Components:**
+
+- **App:** Root component managing theme, global layout, and route definitions.
+- **Router (react-router-dom):** Provides client-side navigation between pages with instant transitions.
+- **NavBar:** Persistent top navigation bar displaying branding and Home link.
+- **HomePage:** Main view presenting a grid of blog post previews.
+- **PostDetailPage:** Detail page for an individual blog post, navigated to by post slug.
+
+All post data is statically defined in the code and consumed directly by these components. There is a persistent theme toggle for light/dark mode, and 404 handling for unknown routes or post slugs.
+
+For detailed architecture, see:
+- [Architecture Overview and System Goals](./architecture_overview.md)
+- [Component Architecture](./component_architecture.md)
+- [Routing Architecture](./routing_architecture.md)
+- [State and Data Handling](./state_data_handling.md)
+
+---
+
 ## 2. Goals and Non-Goals
 
 ### Goals
