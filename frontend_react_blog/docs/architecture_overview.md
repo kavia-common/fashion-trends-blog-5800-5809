@@ -1,26 +1,32 @@
-# Architecture Overview and System Goals
+# System Overview and Goals
 
 ## System Overview
 
-The Fashion Trends Blog is a fully static, modern React single-page application (SPA) designed to highlight trending blog content in the domain of fashion. With no backend, database, or external service dependencies, the application is optimized for rapid deployment to static site hosts and instant page loading. All blog content, layout, and navigation are implemented with React and vanilla CSS, ensuring simplicity and maintainability.
+The Fashion Trends Blog is a fully static, single-page web application built with React, designed to present stylish, engaging blog content focused on fashion and trends. The core of the architecture is a modern SPA (Single Page Application) that serves all content statically: there is no backend, no API, and no dynamic data fetching at runtime. All posts and media are defined in code as static placeholder data to maximize deployment simplicity and ensure lightning-fast load times.
 
-This application serves as both a demonstration of best practices in static SPA design and an educational starter template for developers wishing to build similar static content experiences with React.
+The application is intended to demonstrate best practices for static content delivery, visual branding, accessibility, and responsive design using a minimal tech stack. It is easily deployable to any static site host such as Netlify, Vercel, GitHub Pages, AWS S3, or others. With a focus on modern style and clear content structure, the Fashion Trends Blog functions both as an end-user blog and as a reusable template for similar projects.
 
-## Goals
+## Application Goals
 
-- **Simplicity:** Minimize dependencies and configuration. The only major dependencies are React and React Router DOM, with all styling handled by CSS.
-- **Fast, Static Deployment:** Enable rapid, error-free deployment to any static host with no server or backend support required.
-- **Visual Appeal:** Provide a modern, brand-aligned user interface using a curated palette and clean layouts.
-- **Accessibility:** Adhere to modern accessibility standards, including keyboard navigation, color contrast, and semantic markup.
-- **Responsiveness:** Offer a seamless experience across mobile, tablet, and desktop devices.
-- **Extensibility:** Establish a flexible architecture so that future enhancements, such as migrating to a CMS or static site generator, are straightforward.
+- **Simplicity and Maintainability:** Use only essential dependencies (React and React Router DOM) with no third-party UI frameworks, making it easy to understand, maintain, extend, and audit.
+- **Fast Static Deployment:** Enable one-command builds and zero-config deployment to static hosting, requiring only that the built `/build` folder be uploaded.
+- **Visual Appeal and Branding:** Achieve a modern, minimalist design with a carefully selected palette (primary blue #3b82f6, accent cyan #06b6d4, clean surfaces) for strong brand alignment.
+- **Accessibility:** Adhere to accessibility standards—semantic HTML, color contrast, focus indicators, keyboard navigation—to ensure the app is usable by everyone.
+- **Responsive Design:** Provide a seamless viewing experience from large desktops to small mobile devices by leveraging responsive CSS grid layouts and adaptive components.
+- **Learning Resource:** Serve as a concise reference or starting point for developers new to static React architectures, theming, and deployment.
+- **Extensibility:** Architect the system to make future enhancements straightforward—such as integrating a content management system (CMS), adding search or pagination, or moving to markdown-driven content.
 
-## Non-Goals
+## What Is Out of Scope
 
-- No real-time data/updates, user authentication, or backend-admin editing UI.
-- No dynamic content fetching from API or databases.
-- Not intended for comment systems, forms, or user-generated content in the current state.
+- **No Runtime Backend:** No live APIs, backend logic, or database. All data is static.
+- **No User Authentication or Comments:** The template is read-only and offers no user registration, login, or commenting features.
+- **No Live Content Updates:** To update blog content, developers edit a hardcoded data array in the codebase.
+- **No Authoring Tools:** There is no built-in editor or content management UI.
+
+## Summary
+
+This architecture optimizes for reliability, speed, static hosting compatibility, and maintainability while showcasing best practices for accessible, visually appealing frontend applications.
 
 ---
 
-_Sources: PRD.md, project_overview.md, src/App.js_
+_Sources: PRD.md, project_overview.md, src/App.js, style guide_
